@@ -11,14 +11,14 @@ import sanityClient from '../lib/sanityClient';
 // Barebones lazy-loaded image component
 const SampleImageComponent = ({value, isInline}) => {
   const {width, height} = getImageDimensions(value.asset);
-  console.log('width', width)
-  console.log('height', height)
+  console.log('width', width);
+  console.log('height', height);
   const url = urlBuilder(sanityClient)
-	.image(value)
-	.width(isInline ? 100 : 800)
-	.fit('max')
-	.auto('format')
-	.url();
+    .image(value)
+    .width(isInline ? 100 : 800)
+    .fit('max')
+    .auto('format')
+    .url();
   return (
     <img
       src={url}
@@ -92,8 +92,20 @@ export default function Articles() {
 
   return (
     <div className="blogs">
-      <h1>{article.title}</h1>
-      <PortableText value={article.body} components={components} />
+      <div className="prose">
+        <img
+          src={urlBuilder(sanityClient)
+            .image(article.mainImage)
+            .width(600)
+            .fit('max')
+            .auto('format')
+            .url()}
+          alt=""
+          className="aspect-video w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
+        />
+        <h1>{article.title}</h1>
+        <PortableText value={article.body} components={components} />
+      </div>
     </div>
   );
 }
